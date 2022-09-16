@@ -1,37 +1,49 @@
 import "./style.css";
-import { Game } from "phaser";
+import { AUTO, Game, Scene } from "phaser";
 import * as images from "./assets/images";
+import * as sprites from "./assets/sprites";
 
-class Example extends Phaser.Scene {
+class DemoScene extends Scene {
   constructor() {
     super();
   }
 
-  create() {
-    //  Using the Scene Data Plugin we can store data on a Scene level
-    this.data.set("lives", 3);
-    this.data.set("level", 5);
-    this.data.set("score", 2000);
-
-    var text = this.add.text(100, 100, "", {
-      font: "64px Courier",
-      fill: "#00ff00",
-    });
-
-    text.setText([
-      "Level: " + this.data.get("level"),
-      "Lives: " + this.data.get("lives"),
-      "Score: " + this.data.get("score"),
-    ]);
+  preload() {
+    const path = sprites.phaser_png;
+    this.load.image(path, path);
   }
+
+  create() {
+    this.setData();
+
+    const { apples, pears } = this.data.get("food");
+    this.addText([`Pears: ${pears}`, `Apples: ${apples}`]);
+
+    this.add.image(200, 200, sprites.phaser_png);
+    this.add.image(300, 200, sprites.phaser_png);
+  }
+
+  setData() {
+    this.data.set("food", { apples: 1, pears: 2 });
+    this.data.set("health", { hunger: 0, energy: 10 });
+    this.data.set("score", 100);
+  }
+
+  addText(text) {
+    return this.add.text(100, 100, text, {
+      fill: "#00ff00",
+      font: "24px Serif",
+    });
+  }
+
+  update() {}
 }
 
 const config = {
-  type: Phaser.AUTO,
+  type: AUTO,
   parent: "game-canvas",
   width: 800,
   height: 600,
-  scene: [Example],
+  scene: [DemoScene],
 };
-
 const game = new Game(config);
