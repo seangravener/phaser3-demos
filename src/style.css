@@ -1,0 +1,5 @@
+@font-face {
+  font-family: PilotCommandGradient;
+  src: url("./public/fonts/PilotCommandGradient-rgGry.woff2") format("woff2"),
+    url("./public/fonts/PilotCommandGradient-rgGry.woff") format("woff");
+}

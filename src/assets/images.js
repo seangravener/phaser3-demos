@@ -1,4 +1,4 @@
-import BGBottom from "./static/images/backgrounds/bg-1_700x800.png";
-import BGTop from "./static/images/backgrounds/bg-2_512x512.png";
+import bg0 from "./static/images/back_pale_0008_sky.png";
+import bg1 from "./static/images/back_pale_0000_planet1.png";
 
-export { BGBottom, BGTop };
+export { bg0, bg1 };
