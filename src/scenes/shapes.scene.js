@@ -1,9 +1,10 @@
 import { Scene } from "phaser";
 import * as sprites from "../assets/sprites";
 
-export class DemoScene extends Scene {
+export class ShapesScene extends Scene {
   constructor() {
     super();
+    console.log('demoscene');
   }
 
   preload() {
