@@ -11,4 +11,5 @@ export class SceneController extends Scene {
   preload() {}
 
   create() {}
+
 }

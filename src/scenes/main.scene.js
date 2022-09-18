@@ -11,16 +11,9 @@ export class MainScene extends SceneController {
 
   create() {
     this.scene.add("TitleScene", TitleScene);
-    this.scene.add("DemoScene", ShapesScene);
+    // this.scene.add("MenuScene", MenuScene);
+    // this.scene.add("ShapesScene", ShapesScene);
 
     this.scene.launch("TitleScene");
-
-    setTimeout(() => {
-      this.scene.launch("DemoScene");
-    }, 1000);
-
-    setTimeout(() => {
-      this.scene.remove("TitleScene");
-    }, 3000);
   }
 }

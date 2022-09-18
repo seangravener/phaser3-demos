@@ -32,6 +32,30 @@ export class TitleScene extends Scene {
       img.setScale(2);
       this._images.push(img);
     }
+
+    this.createTitle();
+  }
+
+  createTitle(text) {
+    const [x, y] = [
+      this.game.canvas.width / 2,
+      this.game.canvas.height / 2 - 64,
+    ];
+    const fill = "#cfcfcf";
+
+    this.title1 = this.add
+      .text(x, y, "Star", {
+        fill,
+        font: "64px PilotCommandLaser",
+      })
+      .setOrigin(0.5, 0.5);
+
+    this.title1 = this.add
+      .text(x, y + 64, "Portal", {
+        fill,
+        font: "72px PilotCommandHalftone",
+      })
+      .setOrigin(0.5, 0.5);
   }
 
   update(delta) {
@@ -40,7 +64,6 @@ export class TitleScene extends Scene {
     bg0.x += 0.1;
 
     if (this.cursors.space.isDown) {
-
       this.scene.start(MainScene);
     }
   }

@@ -1,5 +1,11 @@
 @font-face {
-  font-family: PilotCommandGradient;
-  src: url("./public/fonts/PilotCommandGradient-rgGry.woff2") format("woff2"),
-    url("./public/fonts/PilotCommandGradient-rgGry.woff") format("woff");
+  font-family: PilotCommandHalftone;
+  src: url("./public/fonts/PilotCommandHalftone-vm5RE.woff2") format("woff2"),
+    url("./public/fonts/PilotCommandHalftone-vm5RE.woff") format("woff");
+}
+
+@font-face {
+  font-family: PilotCommandLaser;
+  src: url("./public/fonts/PilotCommandLaser-mLGPm.woff2") format("woff2"),
+    url("./public/fonts/PilotCommandLaser-mLGPm.woff") format("woff");
 }
