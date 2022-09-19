@@ -1,12 +1,5 @@
-/**
- * seamless looping background
- * fade/zoom text effect
- * transition to menu scene
- */
-
 import { Scene } from "phaser";
 import * as images from "../assets/images";
-import { MainScene } from "./main.scene";
 
 const paths = [images.bg0, images.bg1];
 
@@ -27,11 +20,22 @@ export class TitleScene extends Scene {
   create() {
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    for (const path of paths) {
-      const img = this.add.image(0, 0, path).setOrigin(0.5, 0.5);
-      img.setScale(2);
-      this._images.push(img);
-    }
+    // for (const path of paths) {
+    //   const img = this.add.image(0, 0, path).setOrigin(0.5, 0.5);
+    //   img.setScale(2);
+    //   this._images.push(img);
+    // }
+
+    this.background = this.add.tileSprite(
+      0,
+      0,
+      this.game.canvas.width * 2,
+      this.game.canvas.height * 2,
+      images.bg0
+    )
+    .setOrigin(0)
+    .setScale(2)
+    .setScrollFactor(0, 1); //this line keeps your background from scrolling outside of camera bounds
 
     this.createTitle();
   }
@@ -59,12 +63,26 @@ export class TitleScene extends Scene {
   }
 
   update(delta) {
-    const bg0 = this._images[0];
-    bg0.y += 0.2;
-    bg0.x += 0.1;
+    // const bg0 = this.
+    // bg0.y += 1;
+    // bg0.x += 0.1;
 
-    if (this.cursors.space.isDown) {
-      this.scene.start(MainScene);
-    }
+    // if (this.cursors.space.isDown) {
+    //   this.scene.start(MainScene);
+    // }
+
+    this.background.tilePositionY += 0.25;
+    this.background.tilePositionX += 0.25;
   }
 }
+
+/**
+ * [ ] seamless looping background
+ * [ ] text fade/zoom text effect
+ * [ ] start\continue button
+ * [ ] sweet transition to menu scene
+ *
+ * Other scenes:
+ * [ ] Dialog scene (with NineSlice)
+ * [ ] Camera movement
+ */
