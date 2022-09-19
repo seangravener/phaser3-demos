@@ -1,6 +1,7 @@
 import { SceneController } from "../lib/scene.controller";
 import { TitleScene } from "./title.scene";
 import { ShapesScene } from "./shapes.scene";
+import { Cameras } from "phaser";
 
 export class MainScene extends SceneController {
   constructor() {
@@ -12,8 +13,8 @@ export class MainScene extends SceneController {
   create() {
     this.scene.add("TitleScene", TitleScene);
     // this.scene.add("MenuScene", MenuScene);
-    // this.scene.add("ShapesScene", ShapesScene);
+    this.scene.add("ShapesScene", ShapesScene);
 
-    this.scene.launch("TitleScene");
+    this.scene.start("TitleScene");
   }
 }

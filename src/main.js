@@ -11,6 +11,8 @@ const config = {
   height: 540,
   pixelArt: true,
   scene: [MainScene],
-  
 };
-const game = new Game(config);
+
+(function () {
+  new Game(config);
+})();

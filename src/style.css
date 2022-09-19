@@ -9,3 +9,9 @@
   src: url("./public/fonts/PilotCommandLaser-mLGPm.woff2") format("woff2"),
     url("./public/fonts/PilotCommandLaser-mLGPm.woff") format("woff");
 }
+
+@font-face {
+  font-family: SpaceRanger;
+  src: url("./public/fonts/spaceranger.woff2") format("woff2"),
+    url("./public/fonts/spaceranger.woff") format("woff");
+}

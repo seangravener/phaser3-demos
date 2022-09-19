@@ -31,7 +31,7 @@ export class ShapesScene extends Scene {
   addText(text) {
     return this.add.text(100, 100, text, {
       fill: "#00ff00",
-      font: "48px PilotCommandGradient",
+      font: "48px SpaceRanger",
     });
   }
 

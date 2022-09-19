@@ -1,10 +1,11 @@
-import { Scene } from "phaser";
+import { Cameras, Scene } from "phaser";
 import * as images from "../assets/images";
 
-const paths = [images.bg0, images.bg1];
+const _paths = [images.bg0, images.bg1];
+const _images = [];
+const _texts = [];
 
 export class TitleScene extends Scene {
-  _images = [];
   cursors;
 
   constructor() {
@@ -12,7 +13,7 @@ export class TitleScene extends Scene {
   }
 
   preload() {
-    for (const path of paths) {
+    for (const path of _paths) {
       this.load.image(path, path);
     }
   }
@@ -20,67 +21,69 @@ export class TitleScene extends Scene {
   create() {
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    // for (const path of paths) {
-    //   const img = this.add.image(0, 0, path).setOrigin(0.5, 0.5);
-    //   img.setScale(2);
-    //   this._images.push(img);
-    // }
-
-    this.background = this.add.tileSprite(
-      0,
-      0,
-      this.game.canvas.width * 2,
-      this.game.canvas.height * 2,
-      images.bg0
-    )
-    .setOrigin(0)
-    .setScale(2)
-    .setScrollFactor(0, 1); //this line keeps your background from scrolling outside of camera bounds
+    const [w, h] = [this.cameras.main.width, this.cameras.main.height];
+    const coords = [0, 0, w, h];
+    for (const path of _paths) {
+      _images.push(this.add.tileSprite(...coords, path).setOrigin(0));
+    }
 
     this.createTitle();
+
+    this.input.keyboard.once("keydown-SPACE", () => {
+      this.cameras.main.fadeOut(1000, 0, 0, 0);
+    });
+
+    this.cameras.main.once(
+      Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
+      (cam, effect) => {
+        this.scene.start("ShapesScene", { fadeIn: true });
+      }
+    );
+
+    this.cameras.main.fadeIn(1000, "#000000");
   }
 
   createTitle(text) {
+    const topRowSize = 64;
+
+    const fill = "#cfcfcf";
     const [x, y] = [
       this.game.canvas.width / 2,
-      this.game.canvas.height / 2 - 64,
+      this.game.canvas.height / 2 - topRowSize,
     ];
-    const fill = "#cfcfcf";
 
-    this.title1 = this.add
+    this.add
       .text(x, y, "Star", {
         fill,
-        font: "64px PilotCommandLaser",
+        font: `${topRowSize}px PilotCommandLaser`,
       })
       .setOrigin(0.5, 0.5);
 
-    this.title1 = this.add
-      .text(x, y + 64, "Portal", {
+    this.add
+      .text(x, y + topRowSize, "Portal", {
         fill,
-        font: "72px PilotCommandHalftone",
+        font: `${topRowSize + 8}px PilotCommandHalftone`,
+      })
+      .setOrigin(0.5, 0.5);
+
+    this.add
+      .text(x, y + topRowSize * 2, "custom text", {
+        fill,
+        font: `${topRowSize * 0.5}px SpaceRanger`,
       })
       .setOrigin(0.5, 0.5);
   }
 
   update(delta) {
-    // const bg0 = this.
-    // bg0.y += 1;
-    // bg0.x += 0.1;
-
-    // if (this.cursors.space.isDown) {
-    //   this.scene.start(MainScene);
-    // }
-
-    this.background.tilePositionY += 0.25;
-    this.background.tilePositionX += 0.25;
+    _images[1].tilePositionY += 0.25;
   }
 }
 
 /**
- * [ ] seamless looping background
- * [ ] text fade/zoom text effect
- * [ ] start\continue button
- * [ ] sweet transition to menu scene
+ * [x] seamless looping background
+ * [x] fade transition to MenuScene
+ * [ ] start\continue
+ * [ ] grid placement for items and text
  *
  * Other scenes:
  * [ ] Dialog scene (with NineSlice)
