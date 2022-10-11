@@ -14,6 +14,7 @@ export class MainScene extends SceneController {
     this.scene.add("TitleScene", TitleScene);
     // this.scene.add("MenuScene", MenuScene);
     this.scene.add("ShapesScene", ShapesScene);
+    this.scene.add("PlayerScene", PlayerScene);
 
     this.scene.start("TitleScene");
   }

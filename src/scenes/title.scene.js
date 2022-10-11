@@ -1,5 +1,6 @@
 import { Cameras, Scene } from "phaser";
 import * as images from "../assets/images";
+import { LayoutManager } from "../lib/layout";
 
 const _paths = [images.bg0, images.bg1];
 const _images = [];
@@ -20,6 +21,10 @@ export class TitleScene extends Scene {
 
   create() {
     this.cursors = this.input.keyboard.createCursorKeys();
+    this.layoutManager = new LayoutManager({
+      key: "TitleScene",
+      scene: this.scene,
+    });
 
     const [w, h] = [this.cameras.main.width, this.cameras.main.height];
     const coords = [0, 0, w, h];
@@ -41,6 +46,7 @@ export class TitleScene extends Scene {
     );
 
     this.cameras.main.fadeIn(1000, "#000000");
+
   }
 
   createTitle(text) {
@@ -52,6 +58,7 @@ export class TitleScene extends Scene {
       this.game.canvas.height / 2 - topRowSize,
     ];
 
+    // wrap in a new scene\container and append here
     this.add
       .text(x, y, "Star", {
         fill,
@@ -82,10 +89,11 @@ export class TitleScene extends Scene {
 /**
  * [x] seamless looping background
  * [x] fade transition to MenuScene
- * [ ] start\continue
  * [ ] grid placement for items and text
+ * [ ] start\continue
  *
  * Other scenes:
  * [ ] Dialog scene (with NineSlice)
  * [ ] Camera movement
+ * [ ] Grid alignment that can align scenes and objects
  */
