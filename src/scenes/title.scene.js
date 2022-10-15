@@ -41,7 +41,8 @@ export class TitleScene extends Scene {
     this.cameras.main.once(
       Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
       (cam, effect) => {
-        this.scene.start("ShapesScene", { fadeIn: true });
+        // this.scene.start("ShapesScene", { fadeIn: true });
+        this.scene.start("PlayerScene", { fadeIn: true });
       }
     );
 

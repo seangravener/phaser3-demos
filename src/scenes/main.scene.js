@@ -1,6 +1,7 @@
 import { SceneController } from "../lib/scene.controller";
 import { TitleScene } from "./title.scene";
 import { ShapesScene } from "./shapes.scene";
+import { PlayerScene } from "./player.scene";
 import { Cameras } from "phaser";
 
 export class MainScene extends SceneController {

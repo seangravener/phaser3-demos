@@ -21,7 +21,7 @@ export class LayoutManager {
     cols = 12,
   }) {
     this.scene = scene.scene;
-    console.log(this);
+    // console.log(this);
 
     width = this.scene.cameras.main.width;
     height = this.scene.cameras.main.height;
@@ -49,7 +49,7 @@ export class LayoutManager {
     //
     this.scene.graphics.beginPath();
     for (var i = 0; i < this.width; i += this.bounds.cell.width) {
-      console.log(i);
+      // console.log(i);
       this.scene.graphics.moveTo(i, 0);
       this.scene.graphics.lineTo(i, this.height);
     }
