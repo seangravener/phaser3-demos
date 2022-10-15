@@ -10,6 +10,10 @@ const config = {
   width: 960,
   height: 540,
   pixelArt: true,
+  physics: {
+    default: "arcade",
+    arcade: {},
+  },
   scene: [MainScene],
 };
 

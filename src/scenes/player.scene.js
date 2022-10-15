@@ -1,5 +1,6 @@
 import { Scene } from "phaser";
 import * as sprites from "../assets/sprites";
+import { BaseSprite } from "../objects/base.sprite";
 
 export class PlayerScene extends Scene {
   constructor() {
@@ -19,18 +20,40 @@ export class PlayerScene extends Scene {
     this.createAnimations();
   }
 
+  initPhysics() {
+    this.h1.scene.physics.world.enable(this);
+    this.h1.body.setVelocity(100, 200);
+    this.h1.body.setCollideWorldBounds(true);
+  }
+
   createAnimations() {
-    const h = this.add.sprite(400, 300, "heroship");
-    h.anims.create({
-      key: "h1",
+    this.h1 = new BaseSprite({ scene: this, x: 100, y: 100 });
+
+    // const h = this.add.sprite(this.h1);
+    // this.initPhysics()
+    this.h1.anims.create({
+      key: "left",
       repeat: -1,
       frameRate: 7,
       frames: this.anims
         .generateFrameNames("heroship")
         .filter((frame) => frame.frame.split("_").includes("PlayerBlue")),
     });
+    this.h1.play("left");
 
-    h.play("h1");
+    const right = this.add.sprite(200, 100, "heroship");
+    right.anims.create({
+      key: "right",
+      repeat: -1,
+      frameRate: 7,
+      frames: this.anims
+        .generateFrameNames("heroship")
+        .filter((frame) => frame.frame.split("_").includes("PlayerRed")),
+    });
+    right.setFlipX(true).play("right");
+
+    // this.add.existing(this);
+    // this.physics.add.existing(this);
   }
 
   addImages() {
