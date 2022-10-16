@@ -1,6 +1,11 @@
 import { Scene } from "phaser";
-import * as sprites from "../assets/sprites";
 import { BaseSprite } from "../objects/base.sprite";
+import * as sprites from "../assets/sprites";
+
+// [x] Add multiple sprites using atlas
+// [x] Add as sprites
+// [x] Add as sprites with physics bodies
+// [ ] Add keyboard controlled movement
 
 export class PlayerScene extends Scene {
   constructor() {
@@ -8,11 +13,11 @@ export class PlayerScene extends Scene {
   }
 
   preload() {
-    const png = sprites.heroship_png;
-    const json = sprites.heroship_json;
-    // this.load.image(png, png);
+    const heroship_png = sprites.heroship_png;
+    const heroship_json = sprites.heroship_json;
+    // this.load.image(heroship_png, heroship_png);
 
-    this.load.atlas("heroship", png, json);
+    this.load.atlas("heroship", heroship_png, heroship_json);
   }
 
   create() {
@@ -24,13 +29,15 @@ export class PlayerScene extends Scene {
     this.h1.scene.physics.world.enable(this);
     this.h1.body.setVelocity(50, 0);
     this.h1.body.setCollideWorldBounds(true);
-    
+
+    this.h2.scene.physics.world.enable(this);
     this.h2.body.setVelocity(76, 0);
+    this.h2.body.setCollideWorldBounds(true);
   }
 
   createAnimations() {
     this.h1 = new BaseSprite({ scene: this, x: 100, y: 100 });
-    this.h2 = new BaseSprite({ scene: this, x: 200, y: 100 });
+    this.h2 = new BaseSprite({ scene: this, x: 100, y: 200 });
 
     this.initPhysics();
     this.h1.anims.create({

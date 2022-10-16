@@ -9,11 +9,11 @@ const config = {
   parent: "game-canvas",
   width: 960,
   height: 540,
-  pixelArt: true,
   physics: {
     default: "arcade",
     arcade: {},
   },
+  pixelArt: true,
   scene: [MainScene],
 };
 

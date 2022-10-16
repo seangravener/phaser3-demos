@@ -1,6 +1,6 @@
 import { Cameras, Scene } from "phaser";
 import * as images from "../assets/images";
-import { LayoutManager } from "../lib/layout";
+import { LayoutManager } from "../lib/layout.manager";
 
 const _paths = [images.bg0, images.bg1];
 const _images = [];
@@ -10,7 +10,7 @@ export class TitleScene extends Scene {
   cursors;
 
   constructor() {
-    super();
+    super({ key: "TitleScene" });
   }
 
   preload() {
@@ -21,10 +21,6 @@ export class TitleScene extends Scene {
 
   create() {
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.layoutManager = new LayoutManager({
-      key: "TitleScene",
-      scene: this.scene,
-    });
 
     const [w, h] = [this.cameras.main.width, this.cameras.main.height];
     const coords = [0, 0, w, h];
@@ -48,6 +44,9 @@ export class TitleScene extends Scene {
 
     this.cameras.main.fadeIn(1000, "#000000");
 
+    this.layoutManager = new LayoutManager({
+      scene: this,
+    });
   }
 
   createTitle(text) {
