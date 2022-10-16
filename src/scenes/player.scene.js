@@ -22,15 +22,17 @@ export class PlayerScene extends Scene {
 
   initPhysics() {
     this.h1.scene.physics.world.enable(this);
-    this.h1.body.setVelocity(100, 200);
+    this.h1.body.setVelocity(50, 0);
     this.h1.body.setCollideWorldBounds(true);
+    
+    this.h2.body.setVelocity(76, 0);
   }
 
   createAnimations() {
     this.h1 = new BaseSprite({ scene: this, x: 100, y: 100 });
+    this.h2 = new BaseSprite({ scene: this, x: 200, y: 100 });
 
-    // const h = this.add.sprite(this.h1);
-    // this.initPhysics()
+    this.initPhysics();
     this.h1.anims.create({
       key: "left",
       repeat: -1,
@@ -41,8 +43,7 @@ export class PlayerScene extends Scene {
     });
     this.h1.play("left");
 
-    const right = this.add.sprite(200, 100, "heroship");
-    right.anims.create({
+    this.h2.anims.create({
       key: "right",
       repeat: -1,
       frameRate: 7,
@@ -50,10 +51,7 @@ export class PlayerScene extends Scene {
         .generateFrameNames("heroship")
         .filter((frame) => frame.frame.split("_").includes("PlayerRed")),
     });
-    right.setFlipX(true).play("right");
-
-    // this.add.existing(this);
-    // this.physics.add.existing(this);
+    this.h2.setFlipX(true).play("right");
   }
 
   addImages() {
