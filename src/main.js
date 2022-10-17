@@ -11,7 +11,13 @@ const config = {
   height: 540,
   physics: {
     default: "arcade",
-    arcade: {},
+    arcade: {
+      gravity: { y: 50 },
+      debug: true,
+      debugShowVelocity: true,
+      debugShowBody: true,
+      debugShowStaticBody: true,
+    },
   },
   pixelArt: true,
   scene: [MainScene],

@@ -1,6 +1,8 @@
 import { Scene } from "phaser";
 import { BaseSprite } from "../objects/base.sprite";
 import * as sprites from "../assets/sprites";
+import { LayoutManager } from "../lib/layout.manager";
+import { PlayerSprite } from "../objects/player.sprite";
 
 // [x] Add multiple sprites using atlas
 // [x] Add as sprites
@@ -22,43 +24,25 @@ export class PlayerScene extends Scene {
 
   create() {
     this.addImages();
-    this.createAnimations();
+    this.bindInputs();
+    this.createPlayers();
+    this.layout = new LayoutManager({
+      scene: this,
+    });
   }
 
-  initPhysics() {
-    this.h1.scene.physics.world.enable(this);
-    this.h1.body.setVelocity(50, 0);
-    this.h1.body.setCollideWorldBounds(true);
-
-    this.h2.scene.physics.world.enable(this);
-    this.h2.body.setVelocity(76, 0);
-    this.h2.body.setCollideWorldBounds(true);
+  bindInputs() {
+    this.cursorKeys = this.input.keyboard.createCursorKeys();
+    // this.input.keyboard.addListener()
   }
 
-  createAnimations() {
-    this.h1 = new BaseSprite({ scene: this, x: 100, y: 100 });
-    this.h2 = new BaseSprite({ scene: this, x: 100, y: 200 });
-
-    this.initPhysics();
-    this.h1.anims.create({
-      key: "left",
-      repeat: -1,
-      frameRate: 7,
-      frames: this.anims
-        .generateFrameNames("heroship")
-        .filter((frame) => frame.frame.split("_").includes("PlayerBlue")),
+  createPlayers() {
+    this.player1 = new PlayerSprite({
+      scene: this,
+      x: 100,
+      y: 100,
+      texture: this.textures.get("heroship"),
     });
-    this.h1.play("left");
-
-    this.h2.anims.create({
-      key: "right",
-      repeat: -1,
-      frameRate: 7,
-      frames: this.anims
-        .generateFrameNames("heroship")
-        .filter((frame) => frame.frame.split("_").includes("PlayerRed")),
-    });
-    this.h2.setFlipX(true).play("right");
   }
 
   addImages() {
