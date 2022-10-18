@@ -39,12 +39,12 @@ export class PlayerScene extends Scene {
       texture: this.textures.get("heroship"),
     });
 
-    this.player2 = new PlayerSprite({
-      scene: this,
-      x: 100,
-      y: 200,
-      texture: this.textures.get("heroship"),
-    });
+    // this.player2 = new PlayerSprite({
+    //   scene: this,
+    //   x: 100,
+    //   y: 200,
+    //   texture: this.textures.get("heroship"),
+    // });
   }
 
   addImages() {

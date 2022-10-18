@@ -29,19 +29,15 @@ export class PlayerSprite extends BaseSprite {
         frame?.frame?.toString().split("_").includes("PlayerBlue")
       );
 
-    this.anims.create({
-      key: "left",
-      repeat: 0,
-      frameRate: 7,
-      frames: playerFrames,
-    });
-
-    this.anims.create({
-      key: "right",
-      repeat: 0,
-      frameRate: 30,
-      frames: playerFrames,
-    });
+    for (const animationName of ["left-turn", "right-turn"]) {
+      console.log(animationName);
+      this.anims.create({
+        key: animationName,
+        repeat: 0,
+        frameRate: 30,
+        frames: playerFrames,
+      });
+    }
   }
 
   protected preUpdate(time: number, delta: number): void {
@@ -49,23 +45,38 @@ export class PlayerSprite extends BaseSprite {
     this.input.didPressJump = Input.Keyboard.JustDown(this.cursorKeys.up);
 
     if (this.cursorKeys.up.isDown) {
-      this.body.setAccelerationY(-500);
+      this.body.setAccelerationY(-250);
       this.setFlipY(false);
     } else if (this.cursorKeys.left.isDown) {
-      this.setFlipX(false);
-      this.play("left", true);
+      if (
+        this.body.velocity.x < 0 &&
+        this.body.acceleration.x < 0 &&
+        Input.Keyboard.JustDown(this.cursorKeys.left)
+      ) {
+        this.setFlipX(false);
+        this.play("left-turn", true);
+      }
       this.body.setAccelerationX(-500);
-      // this.setRotation(1.5708);
     } else if (this.cursorKeys.right.isDown) {
-      this.setFlipX(true);
-      this.play("right");
+      if (
+        this.body.velocity.x > 0 &&
+        this.body.acceleration.x > 0 &&
+        Input.Keyboard.JustDown(this.cursorKeys.right)
+      ) {
+        console.log(
+          "right justdown",
+          Input.Keyboard.JustDown(this.cursorKeys.right)
+        );
+        this.setFlipX(true);
+        this.play("right-turn");
+      }
       this.body.setAccelerationX(500);
-      // this.setRotation(-1.5708);
     } else if (this.cursorKeys.down.isDown) {
-      this.body.setAccelerationY(500);
-      this.setFlipY(true);
+      this.body.setAccelerationY(250);
+      // this.setFlipY(true);
     } else {
       this.body.setAccelerationX(0);
+      // this.body.setVelocity(0, 0);
     }
   }
 }
