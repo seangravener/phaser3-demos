@@ -4,35 +4,31 @@ import { PlayerSprite } from "../objects/player.sprite";
 import * as sprites from "../assets/sprites";
 
 export class PlayerScene extends Scene {
-  keys; 
-  
+  keys;
+
   constructor() {
     super();
   }
 
   preload() {
-    const heroship_png = sprites.heroship_png;
-    const heroship_json = sprites.heroship_json;
-    // this.load.image(heroship_png, heroship_png);
-
-    this.load.atlas("heroship", heroship_png, heroship_json);
+    this.load.atlas("heroship", sprites.heroship_png, sprites.heroship_json);
   }
 
   create() {
-    // this.addImages();
-    this.bindInputs();
+    this.createInputs();
     this.createPlayers();
     this.layout = new LayoutManager({ scene: this });
   }
 
-  bindInputs() {
-    this.keys = this.input.keyboard.addKeys({
+  createInputs() {
+    this.cursorKeys = this.input.keyboard.createCursorKeys();
+    this.cursorKeysAlt = this.input.keyboard.addKeys({
       up: "W",
       left: "A",
       down: "S",
       right: "D",
+      fire: "SPACE",
     });
-    this.cursorKeys = this.input.keyboard.createCursorKeys();
   }
 
   createPlayers() {

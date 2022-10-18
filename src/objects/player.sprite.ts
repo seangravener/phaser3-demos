@@ -13,7 +13,6 @@ export class PlayerSprite extends BaseSprite {
     this.input = {};
 
     this.setupPhysics();
-    // this.setupMovement();
     this.setupAnimations();
   }
 
@@ -24,42 +23,37 @@ export class PlayerSprite extends BaseSprite {
   }
 
   setupAnimations() {
+    const playerFrames = this.anims
+      .generateFrameNames("heroship")
+      .filter((frame) =>
+        frame?.frame?.toString().split("_").includes("PlayerBlue")
+      );
+
     this.anims.create({
       key: "left",
       repeat: 0,
       frameRate: 7,
-      frames: this.anims
-        .generateFrameNames("heroship")
-        .filter((frame) =>
-          frame?.frame?.toString().split("_").includes("PlayerBlue")
-        ),
+      frames: playerFrames,
     });
 
     this.anims.create({
       key: "right",
       repeat: 0,
       frameRate: 30,
-      frames: this.anims
-        .generateFrameNames("heroship")
-        .filter((frame) =>
-          frame?.frame?.toString().split("_").includes("PlayerBlue")
-        ),
+      frames: playerFrames,
     });
-    // this.setFlipX(true);
   }
 
   protected preUpdate(time: number, delta: number): void {
     super.preUpdate(time, delta);
     this.input.didPressJump = Input.Keyboard.JustDown(this.cursorKeys.up);
 
-    const keys = { ...this.cursorKeys, ...this.keys };
-
     if (this.cursorKeys.up.isDown) {
       this.body.setAccelerationY(-500);
       this.setFlipY(false);
     } else if (this.cursorKeys.left.isDown) {
       this.setFlipX(false);
-      this.play("left");
+      this.play("left", true);
       this.body.setAccelerationX(-500);
       // this.setRotation(1.5708);
     } else if (this.cursorKeys.right.isDown) {
