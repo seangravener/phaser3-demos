@@ -1,15 +1,11 @@
 import { Scene } from "phaser";
-import { BaseSprite } from "../objects/base.sprite";
-import * as sprites from "../assets/sprites";
 import { LayoutManager } from "../lib/layout.manager";
 import { PlayerSprite } from "../objects/player.sprite";
-
-// [x] Add multiple sprites using atlas
-// [x] Add as sprites
-// [x] Add as sprites with physics bodies
-// [ ] Add keyboard controlled movement
+import * as sprites from "../assets/sprites";
 
 export class PlayerScene extends Scene {
+  keys; 
+  
   constructor() {
     super();
   }
@@ -23,17 +19,20 @@ export class PlayerScene extends Scene {
   }
 
   create() {
-    this.addImages();
+    // this.addImages();
     this.bindInputs();
     this.createPlayers();
-    this.layout = new LayoutManager({
-      scene: this,
-    });
+    this.layout = new LayoutManager({ scene: this });
   }
 
   bindInputs() {
+    this.keys = this.input.keyboard.addKeys({
+      up: "W",
+      left: "A",
+      down: "S",
+      right: "D",
+    });
     this.cursorKeys = this.input.keyboard.createCursorKeys();
-    // this.input.keyboard.addListener()
   }
 
   createPlayers() {
@@ -41,6 +40,13 @@ export class PlayerScene extends Scene {
       scene: this,
       x: 100,
       y: 100,
+      texture: this.textures.get("heroship"),
+    });
+
+    this.player2 = new PlayerSprite({
+      scene: this,
+      x: 100,
+      y: 200,
       texture: this.textures.get("heroship"),
     });
   }
